@@ -1,0 +1,5 @@
+name: SimpleProtection
+main: com.stefthedev.simpleprotection.SimpleProtection
+version: ALPHA
+author: StefTheDev
+api-version: 1.13
