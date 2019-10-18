@@ -16,20 +16,13 @@ public class CommandListener implements Listener {
 
     @EventHandler
     public void onExecute(PlayerCommandPreprocessEvent event) {
-        for(CommandExecutor commandExecutor : commandManager.asSet()) {
-            if(split(event.getMessage())[0].equalsIgnoreCase(split(commandExecutor.getName())[0])) {
-                if(event.getPlayer().hasPermission("sp." + commandExecutor.toString())) {
-                    commandExecutor.execute(event.getPlayer(), split(event.getMessage()));
-                    break;
-                } else {
-                    //No Permissions
-                }
+        String[] arguments = event.getMessage().split(" ");
+        for (CommandExecutor commandExecutor : commandManager.asSet()) {
+            if (arguments[0].equalsIgnoreCase("/" + commandExecutor.getName())) {
+                commandExecutor.execute(event.getPlayer(), arguments);
+                event.setCancelled(true);
+                break;
             }
-
         }
-    }
-
-    private String[] split(String string) {
-        return string.split(" ");
     }
 }

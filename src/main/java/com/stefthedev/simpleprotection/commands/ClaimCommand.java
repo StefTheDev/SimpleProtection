@@ -24,6 +24,7 @@ public class ClaimCommand extends CommandExecutor {
             if(selection.getOne() == null || selection.getTwo() == null) {
                 player.sendMessage("You not created a proper selection.");
             } else {
+                player.sendMessage("Claimed a region of " + selectionManager.getPoints(selection).size() + " blocks.");
                 //Check if selection is in another region
                 //Check if selection Overlaps with current region.
                 //More checks...

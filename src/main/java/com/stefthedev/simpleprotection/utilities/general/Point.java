@@ -12,19 +12,24 @@ public class Point {
         this.z = z;
     }
 
-    public String getWorld() {
+    String getWorld() {
         return world;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 
-    public int getZ() {
+    int getZ() {
         return z;
+    }
+
+    @Override
+    public String toString() {
+        return "World: " + world + ", x: " +  x + ", y: " +  y + ", z: " +  z;
     }
 }

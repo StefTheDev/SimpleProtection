@@ -1,11 +1,13 @@
 package com.stefthedev.simpleprotection;
 
+import com.stefthedev.simpleprotection.commands.ClaimCommand;
 import com.stefthedev.simpleprotection.listeners.CommandListener;
 import com.stefthedev.simpleprotection.listeners.RegionListener;
 import com.stefthedev.simpleprotection.listeners.SelectionListener;
 import com.stefthedev.simpleprotection.managers.CommandManager;
 import com.stefthedev.simpleprotection.managers.RegionManager;
 import com.stefthedev.simpleprotection.managers.SelectionManager;
+import com.stefthedev.simpleprotection.utilities.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,10 +29,18 @@ public class SimpleProtection extends JavaPlugin {
                 new RegionListener(regionManager),
                 new SelectionListener(selectionManager)
         );
+
+        registerCommands(
+                new ClaimCommand(selectionManager)
+        );
     }
 
     private void registerListeners(Listener... listeners) {
         Arrays.asList(listeners).forEach(listener -> getServer().getPluginManager().registerEvents(listener, this));
+    }
+
+    private void registerCommands(CommandExecutor... commandExecutors) {
+        Arrays.asList(commandExecutors).forEach(commandExecutor -> commandManager.add(commandExecutor));
     }
 
     public CommandManager commandManager() {

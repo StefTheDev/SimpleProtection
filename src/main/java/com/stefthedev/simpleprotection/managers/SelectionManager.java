@@ -2,10 +2,12 @@ package com.stefthedev.simpleprotection.managers;
 
 import com.stefthedev.simpleprotection.utilities.Manager;
 import com.stefthedev.simpleprotection.utilities.general.Point;
+import com.stefthedev.simpleprotection.utilities.general.PointIterator;
 import com.stefthedev.simpleprotection.utilities.general.Selection;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-
 import java.util.*;
+
 
 public class SelectionManager extends Manager<Selection> {
 
@@ -24,22 +26,18 @@ public class SelectionManager extends Manager<Selection> {
         return asSet().stream().filter(selection -> selection.getUniqueId().equals(uuid)).findFirst().orElse(null);
     }
 
-    public int blocksBetweenPoints(Selection selection) {
-        Point one = selection.getOne();
-        Point two = selection.getTwo();
-
-        int size = 0;
-        for (int x = one.getX(); x <= two.getX(); x++) {
-            for (int y = one.getY(); y <= two.getY(); y++) {
-                for (int z = one.getZ(); z <= two.getZ(); z++) {
-                    size++;
-                }
-            }
+    public List<Point> getPoints(Selection selection) {
+        Iterator<Point> iterator = new PointIterator(selection);
+        List<Point> points = new ArrayList<>();
+        while (iterator.hasNext()) {
+            Point point = iterator.next();
+            points.add(point);
+            Bukkit.getLogger().info(point.toString());
         }
-        return size;
+        return points;
     }
 
-    public Point locationToPoint(Location location) {
+    public Point convert(Location location) {
         return new Point(Objects.requireNonNull(
                 location.getWorld()).getName(),
                 location.getBlockX(),

@@ -30,12 +30,12 @@ public class SelectionListener implements Listener {
         if (selection == null) selection = selectionManager.add(player.getUniqueId());
 
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-            selection.setOne(selectionManager.locationToPoint(player.getLocation()));
+            selection.setOne(selectionManager.convert(event.getClickedBlock().getLocation()));
             player.sendMessage("Selected first position.");
             event.setCancelled(true);
 
         } else if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            selection.setTwo(selectionManager.locationToPoint(player.getLocation()));
+            selection.setTwo(selectionManager.convert(event.getClickedBlock().getLocation()));
             player.sendMessage("Selected second position.");
             event.setCancelled(true);
         }
